@@ -11,7 +11,7 @@ df = pd.read_excel(fn, engine="openpyxl")
 print("Columns found:", list(df.columns))
 
 
-def N(s: pd.Series) -> pd.Series:
+def normalize_upper(s: pd.Series) -> pd.Series:
     # normalize text for robust matching
     return s.astype(str).str.upper().str.strip()
 
@@ -20,7 +20,7 @@ def N(s: pd.Series) -> pd.Series:
 hits = {}
 for c in df.columns:
     try:
-        hits[c] = N(df[c]).isin(["TP", "FP"]).sum()
+        hits[c] = normalize_upper(df[c]).isin(["TP", "FP"]).sum()
     except Exception:
         hits[c] = 0
 
@@ -32,7 +32,7 @@ if hits[label_col] == 0:
 
 print(f"Using label column: {label_col!r}")
 
-lab = N(df[label_col])
+lab = normalize_upper(df[label_col])
 # Also accept TRUE/FALSE or 1/0 in case you used booleans
 lab = lab.replace({"TRUE": "TP", "FALSE": "FP", "1": "TP", "0": "FP"})
 

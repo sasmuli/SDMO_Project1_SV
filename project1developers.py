@@ -13,6 +13,7 @@ from Levenshtein import ratio as sim
 # If you provide a URL, it clones the repo, fetches the commits and then deletes it,
 # so for a big project better clone the repo locally and provide filesystem path
 
+# from pydriller import Repository
 # DEVS = set()
 # for commit in Repository("https://github.com/dotnet-architecture/eShopOnContainers").traverse_commits():
 #     DEVS.add((commit.author.name, commit.author.email))

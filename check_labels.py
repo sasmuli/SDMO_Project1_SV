@@ -3,7 +3,7 @@ from pathlib import Path
 import pandas as pd
 
 # -------- 1) Point to your file (edit if needed) --------
-fn = r"C:\Users\SamuliVirkkula\StudioProjects\SDMO_Project1\project1devs\devs_similarity_t=0.7_labeled.xlsx"
+fn = r"project1devs\devs_similarity_t=0.7_labeled.xlsx"
 
 # -------- 2) Sanity check the path --------
 p = Path(fn)

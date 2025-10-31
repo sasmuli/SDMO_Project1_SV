@@ -1,39 +1,105 @@
-# 811372A-3007 Software Development, Maintenance and Operations 2025 Projects
+# 811372A-3007 Software Development, Maintenance and Operations 2025
 
-This repository contains example data and scripts showcasing data collection and processing
-for projects of the Software Development, Maintenance and Operations.
+## Project 1: Developer De-duplication
 
-The three projects are:
-
-- Project 1: Developer de-duplication
-- Project 2: Temporal centrality and monitoring metrics
-- Project 3: Temporal state detection and anomaly detection
+This repository contains data, scripts, and utilities for developer de-duplication
+using the Bird heuristic and improved matching rules. The project focuses on
+identifying duplicate developer identities from Git repository mining data.
 
 ## Contents
 
-- `project1devs/`: Directory with data for Project 1
+### Data Files
+- `project1devs/`: Directory with developer data and similarity analysis
   - `devs.csv`: List of developers mined from eShopOnContainersProject
   - `devs_similarity.csv`: Similarity tests for each pair of developers
-  - `devs_similarity_t=0.7.csv`: Similarity tests for each pair of developers with similarity threshold 0.7
-- `project1developers.py`: Script demonstrating mining developer information and Bird heuristic to determine duplicate developers
-- `project2&3traces/`: Directory with data for Projects 2 & 3
-  - `train-ticket-traces.csv`: CSV file with traces for train-ticket system from an open dataset
-  - `project2edgeflow.csv`: CSV file providing a list of real-time service calls for Project 2
-  - `project3anomaly.csv`: CSV file providing snapshot networks for service calls grouped by intervals for Project 3
-  - `project2_katz_exponential.csv`: CSV file with Temporal Katz Centrality with exponential decay
-  - `project2_katz_constant.csv`: CSV file with Temporal Katz Centrality with constant decay
-  - `project2_katz_truncated.csv`: CSV file with Temporal Katz Centrality with truncated exponential decay
-- `project2&3data.py`: Script processing raw traces into formats required by Projects 2&3
-- `project2centrality.py`: Script demonstrating temporal katz centrality on temporal edge flow network of microservice calls for Project 2
-- `project3anomaly.py`: Script demonstrating temporal state detection on temporal networks of microservice calls for Project 3
-- `requirements.txt`: List of used libraries with specified versions
+  - `devs_similarity_t=0.7.csv`: Developer pairs with similarity threshold ≥ 0.7
+  - `devs_similarity_t=0.75.csv`: Developer pairs with similarity threshold ≥ 0.75
+  - `devs_similarity_t=0.7_labeled.xlsx`: Labeled dataset with TP/FP annotations
 
+### Core Scripts
+- `project1developers.py`: Main script demonstrating mining developer information
+  and applying the Bird heuristic to identify duplicate developers
+- `dedupe_utils.py`: Utility functions for developer de-duplication including:
+  - Text normalization and name parsing
+  - Surname extraction
+  - Email parsing and validation
+  - Improved matching rule implementation
 
-## Running the scripts
+### Analysis Scripts
+- `analyze_patterns.py`: Analyzes patterns in labeled developer pairs to identify
+  matching characteristics
+- `check_labels.py`: Validates and inspects labeled data quality
+- `score_improved_rule.py`: Evaluates the improved de-duplication rule against
+  labeled data
+- `summarize_quality.py`: Generates quality metrics summary from static analysis
+  reports
 
-The scripts were developed and tested on a Mac (UNIX) environment with Python 3.10.
-There should be no compatibility issues with running the scripts on Windows.
+### Testing
+- `tests/`: Test suite with pytest configuration
+  - `test_rule_on_tiny_frame.py`: Unit tests for de-duplication rules
+  - `test_utils.py`: Tests for utility functions
+  - `conftest.py`: Pytest configuration and fixtures
 
-The versions of imported libraries are provided in `requirements.txt`.
+### Configuration Files
+- `requirements.txt`: Python dependencies with pinned versions
+- `pyproject.toml`: Black and isort configuration
+- `.flake8`: Flake8 linting configuration
+- `.pylintrc`: Pylint configuration
+- `mypy.ini`: MyPy type checking configuration
+- `sonar-project.properties`: SonarQube analysis configuration
 
-It is recommended to create a Python virtual environment and install the exact versions there.
+## Setup and Installation
+
+The project was developed and tested with Python 3.12 on Windows. It should be
+compatible with Python 3.10+.
+
+### Create a virtual environment and install dependencies:
+
+```bash
+# Create virtual environment
+python -m venv venv312
+
+# Activate virtual environment
+# On Windows:
+venv312\Scripts\activate
+# On Unix/Mac:
+source venv312/bin/activate
+
+# Install dependencies
+pip install -r requirements.txt
+```
+
+## Running the Scripts
+
+### Mine developer data and identify duplicates:
+```bash
+python project1developers.py
+```
+
+### Analyze labeled patterns:
+```bash
+python analyze_patterns.py
+```
+
+### Score the improved rule:
+```bash
+python score_improved_rule.py
+```
+
+### Run tests:
+```bash
+pytest
+```
+
+## Code Quality
+
+The project uses multiple static analysis tools:
+- **Black**: Code formatting
+- **isort**: Import sorting
+- **Flake8**: Style guide enforcement
+- **Pylint**: Code analysis
+- **MyPy**: Static type checking
+- **Radon**: Complexity metrics
+- **Bandit**: Security analysis
+
+Run quality checks via the GitHub Actions workflow or locally using the individual tools.

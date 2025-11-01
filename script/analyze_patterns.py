@@ -5,7 +5,7 @@ import unicodedata
 
 import pandas as pd
 
-fn = r".\project1devs\devs_similarity_t=0.7_labeled.xlsx"
+fn = r"project1devs\devs_similarity_t=0.72_labeled.xlsx"
 df = pd.read_excel(fn, engine="openpyxl")
 
 print("Columns found:", list(df.columns))

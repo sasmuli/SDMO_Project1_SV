@@ -2,10 +2,9 @@ import re
 import unicodedata
 
 import pandas as pd
-
 from dedupe_utils import improved_rule
 
-fn = r".\project1devs\devs_similarity_t=0.7_labeled.xlsx"
+fn = r".\project1devs\devs_similarity_t=0.72_labeled.xlsx"
 df = pd.read_excel(fn, engine="openpyxl")
 
 

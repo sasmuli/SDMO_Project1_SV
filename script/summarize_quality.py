@@ -33,7 +33,11 @@ out.append(f"- **Flake8**: {flake_count} issues reported")
 # Radon CC (C or worse)
 try:
     cc = (root / files["radon_cc"]).read_text(encoding="utf-8", errors="ignore")
-    hot = [ln.strip() for ln in cc.splitlines() if " - " in ln and (") C" in ln or ") D" in ln or ") E" in ln or ") F" in ln)]
+    hot = [
+        ln.strip()
+        for ln in cc.splitlines()
+        if " - " in ln and (") C" in ln or ") D" in ln or ") E" in ln or ") F" in ln)
+    ]
     out.append("### Highest cyclomatic complexity (C or worse)")
     if hot:
         out.extend(f"  - {ln}" for ln in hot[:8])
@@ -66,7 +70,7 @@ except Exception as e:
 try:
     b = (root / files["bandit"]).read_text(encoding="utf-8", errors="ignore")
     sev_high = sum("Severity: High" in ln for ln in b.splitlines())
-    sev_med  = sum("Severity: Medium" in ln for ln in b.splitlines())
+    sev_med = sum("Severity: Medium" in ln for ln in b.splitlines())
     out.append(f"- **Bandit**: High={sev_high}, Medium={sev_med}")
 except Exception as e:
     out.append(f"- **Bandit**: Error - {e}")

@@ -29,9 +29,6 @@ coverage.xml
 .dmypy.json
 dmypy.json
 
-# Reports
-reports/
-
 # Temporary files
 *.log
 *.tmp

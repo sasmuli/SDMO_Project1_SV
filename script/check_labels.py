@@ -2,20 +2,16 @@ from pathlib import Path
 
 import pandas as pd
 
-# -------- 1) Point to your file (edit if needed) --------
-fn = r"project1devs\devs_similarity_t=0.7_labeled.xlsx"
-
-# -------- 2) Sanity check the path --------
+fn = r"project1devs\devs_similarity_t=0.72_labeled.xlsx"
 p = Path(fn)
 if not p.exists():
     print(f"❌ File not found:\n{p.resolve()}")
     raise SystemExit(1)
 
-print(f"✅ File found:\n{p.resolve()}")
+print(f"File found:\n{p.resolve()}")
 
-# -------- 3) Try reading with normal headers first --------
 df = pd.read_excel(fn, engine="openpyxl")
-print(f"✅ Loaded Excel (header=0). Shape: {df.shape}")
+print(f"Loaded Excel (header=0). Shape: {df.shape}")
 
 
 def normalize_series(s: pd.Series) -> pd.Series:
@@ -48,22 +44,21 @@ if label_col is None:
     if hits == 0:
         # Second attempt: read with no header (Excel might not have a real header row)
         df_nohdr = pd.read_excel(fn, engine="openpyxl", header=None)
-        print("ℹ️ Re-read with header=None to scan raw contents.")
+        print("Re-read with header=None to scan raw contents.")
         cand_col, hits = detect_label_column_by_contents(df_nohdr)
         if hits > 0:
             # Promote the no-header frame and synthesize a column name
             df = df_nohdr
             label_col = cand_col
         else:
-            print("❌ Could not find any column containing 'TP' or 'FP'.")
+            print(" Could not find any column containing 'TP' or 'FP'.")
             print("Columns in header=0 read:", list(df.columns))
             raise SystemExit(2)
     else:
         label_col = cand_col
 
-print(f"✅ Using label column: {label_col!r}")
+print(f"Using label column: {label_col!r}")
 
-# -------- 4) Compute metrics --------
 lab = normalize_series(df[label_col])
 tp = (lab == "TP").sum()
 fp = (lab == "FP").sum()

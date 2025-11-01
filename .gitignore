@@ -34,3 +34,6 @@ dmypy.json
 *.tmp
 .DS_Store
 Thumbs.db
+
+# Large data files (exceed GitHub 100MB limit)
+project1devs/devs_similarity.csv
